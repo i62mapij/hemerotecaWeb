@@ -1,0 +1,18 @@
+{% extends 'layout/base.html' %}
+
+{% block container %}
+<div class="card">
+    <div class="card-header">
+        Configuración de los parámetros de acceso a Twitter
+    </div>
+    <div class="card-body">
+        <form  action="{{ url_for('configurationController.parametersTwitter') }}" method="POST">
+            {% include 'configuration/_formTwitter.html' %}
+            <div align="right">
+             <button class="btn btn-success" type="submit"><i class="fas fa-save"></i> Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'layout/base.html' %}
+
+{% block container %}
+<div class="card">
+    <div class="card-header">
+        Búsqueda de publicaciones
+    </div>
+    <div class="card-body">
+        <form  action="{{ url_for('publication.search') }}" method="POST">
+            {% include 'searches/_form.html' %}
+            <div align="right">
+             <button class="btn btn-success" type="submit"><i class="fas fa-search"></i> Buscar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

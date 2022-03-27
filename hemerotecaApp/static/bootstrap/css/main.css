@@ -1,0 +1,100 @@
+* 
+.social-icons-grandes {
+  text-align: center;
+  font-family: "Open Sans";
+  font-weight: 300;
+  font-size: 8em;
+  color: #1391b8;
+}
+
+.control-tag{
+  color: rgba(4, 37, 87, 0.541);
+  text-align: left!important;
+}
+
+.menu-line{
+  line-height: 0.1em!important;
+}
+
+label{
+  color:cadetblue;
+  font-weight: bold;
+  
+}
+
+.form-control:disabled,.form-control[read-only]{
+  background-color: white!important;
+}
+
+.scrollPanelList{
+  height: 56vh;overflow-y: scroll;
+}
+
+.scrollPanelCatcher{
+  height: 50vh;overflow-y: scroll;
+}
+
+
+.page-link{
+  padding: 0.25rem 0.5rem!important;
+}
+
+.espaciadoJumbo{
+  margin-bottom: 0.5rem!important;
+}
+
+input[type='file'] {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+}
+
+h1, h2, h3, h4, h5 {
+   font-weight: 650; 
+}
+.social-icons {
+  text-align: center;
+  font-family: "Open Sans";
+  font-weight: 300;
+  font-size: 1.5em;
+  color: #1391b8;
+}
+
+.social-icons ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.social-icons ul li {
+  display: inline-block;
+  zoom: 1;
+  width: 65px;
+  vertical-align: middle;
+  border: 1px solid #e3e8f9;
+  font-size: 15px;
+  height: 40px;
+  line-height: 40px;
+  margin-right: 5px;
+  background: #f4f6ff;
+}
+
+.social-icons ul li a {
+  display: block;
+  font-size: 1.4em;
+  margin: 0 5px;
+  text-decoration: none;
+}
+.social-icons ul li a i {
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -ms-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+
+.social-icons ul li a:focus i,
+.social-icons ul li a:active i {
+  transition: none;
+  color: #44a7e9;
+}

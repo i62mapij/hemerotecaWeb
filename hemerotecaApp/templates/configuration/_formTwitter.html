@@ -1,0 +1,31 @@
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="form-group">
+            {{ form.consumerKey.label }}
+            {{ form.consumerKey(class="form-control") }}
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            {{ form.consumerSecret.label }}
+            {{ form.consumerSecret(class="form-control") }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            {{ form.accessToken.label }}
+            {{ form.accessToken(class="form-control") }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            {{ form.accessTokenSecret.label }}
+            {{ form.accessTokenSecret(class="form-control") }}
+        </div>
+    </div>
+    {{ form.id() }}
+    {{ form.csrf_token }}
+
+</div>

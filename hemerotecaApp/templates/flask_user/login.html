@@ -1,0 +1,58 @@
+{% extends 'flask_user/base.html' %}
+
+{% block content %}
+{% from "flask_user/_macros.html" import render_submit_field %}
+<body class="text-center">
+<h1 class="text-center mt-5">{%trans%}Login{%endtrans%}</h1>
+
+<div class="card col-md-4 offset-md-4">
+    <div class="card-body">
+        <form action="" method="POST" class="form" role="form">
+            {{ form.hidden_tag() }}
+
+            {# Username or Email field #}
+            {% set field = form.username if user_manager.USER_ENABLE_USERNAME else form.email %}
+            <div class="form-group {% if field.errors %}has-error{% endif %}">
+                {# Label on left, "New here? Register." on right #}
+                <div class="row">
+                    <div class="col-3">
+                        <label for="{{ field.id }}" class="control-tag">Usuario</label>
+                    </div>
+                    <div class="col-6">
+                       
+                    </div>
+                </div>
+                {{ field(class_='form-control', tabindex=110, onBlur="this.value=this.value.trim()") }}
+                {% if field.errors %}
+                {% for e in field.errors %}
+                <p class="text-danger">{{ e }}</p>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            {# Password field #}
+            {% set field = form.password %}
+            <div class="form-group {% if field.errors %}has-error{% endif %}">
+                {# Label on left, "Forgot your Password?" on right #}
+                <div class="row">
+                    <div class="col-3">
+                        <label for="{{ field.id }}" class="control-tag">Password</label>
+                    </div>
+                   
+                </div>
+                {{ field(class_='form-control', tabindex=120, onBlur="this.value=this.value.trim()") }}
+                {% if field.errors %}
+                {% for e in field.errors %}
+                <p class="text-danger">{{ e }}</p>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <br>
+
+            {# Submit button #}
+            {{ render_submit_field(form.submit, tabindex=180, label='Entrar') }}
+        </form>
+    </div>
+</div>
+</body>
+{% endblock %}

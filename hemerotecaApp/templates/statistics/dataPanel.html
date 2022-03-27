@@ -1,0 +1,34 @@
+{% extends 'layout/base.html' %}
+
+{% block container %}
+<div class="card" style="width: 60rem;">
+    <div class="card-body">
+      <h5 class="font-weight-bold mb-3">Resumen de publicaciones en el sistema</h5>
+      <p class="mb-0">Publicaciones dadas de alta a fecha {{time}}</p>
+    </div>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Origen</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Web</th>
+            <td>{{statisticalData.web}}</td>
+          </tr>
+          <tr>
+            <th>Twitter</th>
+            <td>{{statisticalData.twitter}}</td>
+          </tr>
+          <tr>
+            <th>Telegram</th>
+            <td>{{statisticalData.telegram}}</td>
+          </tr>
+        </tbody>
+      </table>
+   
+  </div>
+
+{% endblock %}

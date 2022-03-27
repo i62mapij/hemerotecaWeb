@@ -1,0 +1,29 @@
+{% extends 'layout/base.html' %}
+{% from 'macro/_pagination.html' import m_pagination %}
+
+{% block container %}
+
+
+
+<div id="app">
+    {% raw %}       
+    <web-catch publication_type="Telegram"></web-catch>
+    {% endraw %}
+</div>
+
+<br>
+
+<script src="{{ url_for('static',filename='global/js/jquery-3.4.1.slim.min.js') }}"></script>
+<script src="{{ url_for('static',filename='global/js/popper.min.js') }}"></script>
+<script src="{{ url_for('static',filename='bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static',filename='global/js/vue.js') }}"></script>
+<script src="{{ url_for('static',filename='global/js/vue/components/catcher.js') }}"></script>
+<script src="{{ url_for('static',filename='global/js/vue/components/tuitsList.js') }}"></script>
+<script src="{{ url_for('static',filename='global/js/vue/components/publication-delete.js') }}"></script>
+<script src="{{ url_for('static',filename='global/js/vue/components/catch-publication.js') }}"></script>
+<script src="{{ url_for('static',filename='global/js/vue/components/pre-publication.js') }}"></script>
+<script src="{{ url_for('static',filename='global/js/vue/app.js') }}"></script>
+<script src="{{ url_for('static',filename='global/js/vue/components/pagination.js') }}"></script>
+<script src="{{ url_for('static',filename='global/js/vue/components/notes.js') }}"></script>
+<script src="{{ url_for('static',filename='global/js/vue/components/notes.js') }}"></script>
+{% endblock %}

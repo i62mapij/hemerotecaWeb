@@ -1,0 +1,17 @@
+{% extends 'layout/base.html' %}
+
+{% block container %}
+<div class="card">
+    <div class="card-header">
+        Configuración de los parámetros de acceso a Telegram
+    </div>
+    <div class="card-body">
+        <form  action="{{ url_for('configurationController.parametersTelegram') }}" method="POST">
+            {% include 'configuration/_formTelegram.html' %}
+            <div align="right">
+             <button class="btn btn-success" type="submit"><i class="fas fa-save"></i> Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
