@@ -19,3 +19,6 @@ Usuario de inicio:
 nombre: SuperadminFactory
 password: SuperadminFactory
 
+Una vez levantada la aplicación es necesario configurar los datos de la conexión con Twitter y Telegram.
+
+Los procesos de captura se han preparado para funcionar en servidores Linux-Unix, el resto de la aplicación puede funcionar en Windows.
