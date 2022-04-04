@@ -104,15 +104,16 @@ class PublicationApi(MethodView):
              else:
               qTag=Q()
              
+            
              if request.form['fromDate']!='':
               fromDate = request.form['fromDate'].split('-')
-              qFromDate=Q(date__gte=datetime(int(fromDate[0]),int(fromDate[1]),int(fromDate[2])))
+              qFromDate=Q(date__gte=datetime(int(fromDate[0]),int(fromDate[1]),int(fromDate[2]),23,59))
              else:
               qFromDate=Q()
 
              if request.form['toDate']!='':
               toDate = request.form['toDate'].split('-')
-              qToDate=Q(date__lte=datetime(int(toDate[0]),int(toDate[1]),int(toDate[2])))
+              qToDate=Q(date__lte=datetime(int(toDate[0]),int(toDate[1]),int(toDate[2]),23,59))
              else:
               qToDate=Q()
 
@@ -124,7 +125,7 @@ class PublicationApi(MethodView):
 
              if request.form['toWebDate']!='':
               toWebDate = request.form['toWebDate'].split('-')
-              qToWebDate=Q(webDate__lte=datetime(int(toWebDate[0]),int(toWebDate[1]),int(toWebDate[2])))
+              qToWebDate=Q(webDate__lte=datetime(int(toWebDate[0]),int(toWebDate[1]),int(toWebDate[2],23,59)))
              else:
               qToWebDate=Q()
 
@@ -258,6 +259,7 @@ class NotesApi(MethodView):
              return sendResJson(resJson,None,200)
             except Exception as e:
              return sendResJson(None,'Se ha producido un error al obtener las notas de la publicación#'+ traceback.format_exc(),240)
+    
     def delete(self, idNote, idPublication):
         try:
          
@@ -347,7 +349,7 @@ class TwitterApi(MethodView):
 
             try:
              tweets = api.user_timeline(screen_name=screen_name, 
-                           count=200,
+                           count=20,
                            include_rts = False,
                            tweet_mode = 'extended'
                            )

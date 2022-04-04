@@ -252,13 +252,18 @@ def configureBotTwitter():
       if errorMessage=='':
          errorMessage='Error al cargar la página'
       flash(errorMessage,'danger')
-   files=[]
-   for child in Path('./hemerotecaApp/bots/log').iterdir():
+   
+   files=getLogFilesList()
+   return render_template('bots/botTwitter.html',form=form, botState=botState, files=files)
+
+#get the list of log files
+def getLogFilesList():
+ files=[]
+ for child in Path('./hemerotecaApp/bots/log').iterdir():
     if child.is_file():
      if 'Twitter' in child.name:
       files.append(child.name)
-
-   return render_template('bots/botTwitter.html',form=form, botState=botState, files=files)
+ return files
 
 #method to run de telegram bot
 def runBotTelegramProcess(parameters):
@@ -288,6 +293,7 @@ def stopBotTelegramProcess(parameters):
        try:
          p=psutil.Process(parameters[0].pid)
          p.terminate()
+         
        except:
          print('error al parar')
    
@@ -359,12 +365,8 @@ def configureBotTelegram():
          errorMessage='Error al cargar la página'
       flash(errorMessage,'danger')
    
-   files=[]
-   for child in Path('./hemerotecaApp/bots/log').iterdir():
-    if child.is_file():
-     if 'Telegram' in child.name:
-      files.append(child.name)
-
+   files=getLogFilesList()
+   
    return render_template('bots/botTelegram.html',form=form, botState=botState, files=files)
 
 #class for bot configuration forms

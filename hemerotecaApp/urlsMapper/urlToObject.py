@@ -16,6 +16,8 @@ from htmldate import find_date
 nltk.download('punkt')
 nltk.download('stopwords')
 from datetime import datetime
+from langdetect import detect, DetectorFactory
+from iso639 import Lang
 
 class ForbidedError(Exception):
     pass
@@ -88,27 +90,29 @@ class UrlToObject():
     pTags = soup.find_all('p')
     divTags = soup.find_all('div')
     hasDivAndP=False
+    #look for div tags
     for div in divTags:
+     #look for p tags into the div
      pTags = div.find_all('p')
      
      textTags = [tag.get_text().strip() for tag in pTags]
      if not hasDivAndP and len(textTags)>0:
       hasDivAndP=True
      
-     sentenceList = [sentence for sentence in textTags if not '\n' in sentence]
-     sentenceList = [sentence for sentence in sentenceList if '.' in sentence]
+     sentence_List = [sentenceSelected for sentenceSelected in textTags if not '\n' in sentenceSelected]
+     sentence_List = [sentenceSelected for sentenceSelected in sentence_List if '.' in sentenceSelected]
    
-     textDiv.append(' '.join(sentenceList))
+     textDiv.append(' '.join(sentence_List))
     
     if not hasDivAndP:
      pTags = soup.find_all('p')
      
      textTags = [tag.get_text().strip() for tag in pTags]
      
-     sentenceList = [sentence for sentence in textTags if not '\n' in sentence]
-     sentenceList = [sentence for sentence in sentenceList if '.' in sentence]
+     sentence_List = [sentenceSelected for sentenceSelected in textTags if not '\n' in sentenceSelected]
+     sentence_List = [sentenceSelected for sentenceSelected in sentence_List if '.' in sentenceSelected]
    
-     textDiv.append(' '.join(sentenceList))
+     textDiv.append(' '.join(sentence_List))
     
     return textDiv
  
@@ -122,6 +126,14 @@ class UrlToObject():
       score=score+1
     return score
 
+ #get the language from the text
+ #text:text to analize
+ def languageDetect(self,text):
+  DetectorFactory.seed = 0
+  out = detect(text)
+  out_full = Lang(out).name 
+  return out_full
+
  # get the main paragraph of the text in the context of the title
  #soup: BeautifulSoup object
  #title: article title
@@ -130,7 +142,9 @@ class UrlToObject():
     
     textArticle=''
     titleWords=[]
-    stopWords = nltk.corpus.stopwords.words('spanish')
+    detectedLanguage=self.languageDetect(title)
+
+    stopWords = nltk.corpus.stopwords.words(detectedLanguage.lower())
     
     for word in nltk.word_tokenize(title):
      if word not in stopWords:
@@ -149,7 +163,10 @@ class UrlToObject():
  #get word frequencies from a text
  #text: text 
  def getWordFrequencies(self,text):
-    stopWords = nltk.corpus.stopwords.words('spanish')
+    detectedLanguage=self.languageDetect(text)
+    
+    stopWords = nltk.corpus.stopwords.words(detectedLanguage.lower())
+
     frequencies = {}
     maxFreq=0
     for word in nltk.word_tokenize(text):
@@ -173,9 +190,9 @@ class UrlToObject():
  def getSummary(self,wordFrequencies,text):
    summary = ''
    try:
-    sentenceList = nltk.sent_tokenize(text)
+    sentence_List = nltk.sent_tokenize(text)
     sentenceScores = {}
-    for sent in sentenceList:
+    for sent in sentence_List:
         for word in nltk.word_tokenize(sent.lower()):
             if word in wordFrequencies.keys():
                 if len(sent.split(' ')) < 30:

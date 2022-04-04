@@ -115,6 +115,18 @@ Vue.component('notes',{
            this.callDelete(idNote)
           }
         },
+        checkReadOnly:function(){
+          let returnValue;
+          
+          if(this.readonly=='S'){
+            returnValue=false;
+          }
+          else{
+            returnValue=true;
+          }
+
+          return returnValue;
+        }
     },
     watch: {
      time: function (newValue, oldValue) {
@@ -157,7 +169,7 @@ Vue.component('notes',{
            <div v-for="(note, index) in this.notes.data" class="jumbotron pb-2 pt-3 espaciadoJumbo" >
                 <div>
                   <span>&nbsp;{{ note.text }}
-                     <button type="button" class="close" v-on:click="noteDelete(index)" aria-label="Borrar nota">
+                     <button v-if="checkReadOnly()" type="button" class="close" v-on:click="noteDelete(index)" aria-label="Borrar nota">
                        <span aria-hidden="true" title="Borrar nota">&times;</span>
                      </button>
                   </span>

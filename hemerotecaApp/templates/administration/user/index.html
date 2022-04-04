@@ -1,0 +1,81 @@
+{% extends 'layout/basePage.html' %}
+{% from 'macro/pagination.html' import macro_pagination %}
+{% block container %}
+<a class="btn btn-primary mt-2 mb-2" href="{{ url_for('useradministration.create') }}">
+<i class="fa fa-plus"></i> Crear</a>
+
+
+<br>
+<div class="list-user row">
+  {% for userItem in users.items %}
+
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+              {{ userItem['email'] }}
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              {{ userItem['username'] }}
+            </div>
+          </div>
+          <div class="col-auto">
+            <a data-toggle="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-sm"
+              href="{{ url_for('useradministration.update', id=userItem['_id']) }}"><i class="fa fa-edit"></i></a>
+            <button data-toggle="modal" data-target="#deleteModal" data-name="{{ userItem['username'] }}"
+              data-id="{{ userItem['_id'] }}" class="btn btn-danger btn-sm"
+              href=""><i data-toggle="tooltip"
+                title="{{ url_for('useradministration.delete', id=userItem['_id']) }}" data-placement="top" class="fa fa-trash"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+
+{{ macro_pagination(users,'useradministration.index') }}
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Borrar: <span></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Seguro que desea borrar el registro seleccionado?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <a href="#" id="deleteUser" class="btn btn-danger">Borrar</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  window.onload = function () {
+    $('#deleteModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var name = button.data('name') 
+      var id = button.data('id') 
+      var modal = $(this)
+      modal.find('.modal-title span').text(name)
+
+      $("#deleteUser").attr("href", "/administration/user/delete/" + id)
+
+
+    })
+  }
+</script>
+
+
+
+
+
+{% endblock %}

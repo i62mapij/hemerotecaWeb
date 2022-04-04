@@ -1,4 +1,4 @@
-{% extends 'layout/base.html' %}
+{% extends 'layout/basePage.html' %}
 
 {% block container %}
 <div class="card">
@@ -7,7 +7,7 @@
     </div>
     <div class="card-body">
         <form  action="{{ url_for('publication.search') }}" method="POST">
-            {% include 'searches/_form.html' %}
+            {% include 'searches/form.html' %}
             <div align="right">
              <button class="btn btn-success" type="submit"><i class="fas fa-search"></i> Buscar</button>
             </div>

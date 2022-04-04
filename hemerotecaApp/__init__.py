@@ -16,7 +16,7 @@ app.config.from_object('configuration.DevelopmentConfig')
 dbMongo = MongoEngine()
 dbMongo.init_app(app)
 
-#babel = Babel(app)
+
 
 #configure flask-user and flask-login
 from hemerotecaApp.auth.model.user import User

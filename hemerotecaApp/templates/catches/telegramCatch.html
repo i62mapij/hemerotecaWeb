@@ -1,5 +1,5 @@
-{% extends 'layout/base.html' %}
-{% from 'macro/_pagination.html' import m_pagination %}
+{% extends 'layout/basePage.html' %}
+{% from 'macro/pagination.html' import macro_pagination %}
 
 {% block container %}
 
@@ -14,7 +14,6 @@
 <br>
 
 <script src="{{ url_for('static',filename='global/js/jquery-3.4.1.slim.min.js') }}"></script>
-<script src="{{ url_for('static',filename='global/js/popper.min.js') }}"></script>
 <script src="{{ url_for('static',filename='bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ url_for('static',filename='global/js/vue.js') }}"></script>
 <script src="{{ url_for('static',filename='global/js/vue/components/catcher.js') }}"></script>

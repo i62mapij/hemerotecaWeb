@@ -11,11 +11,13 @@ from hemerotecaApp.auth.model.user import User, RegisterForm
 from hemerotecaApp.auth.model.userModel import UpdateForm
 from hemerotecaApp import user_manager
 import bson
-from collections import namedtuple
 
 from mongoengine import errors
 
-userBp = Blueprint('useradmin',__name__)
+# controller for user administration
+#requires Superadmin role
+
+userBp = Blueprint('useradministration',__name__)
 
 @userBp.before_request
 @login_required
@@ -24,15 +26,17 @@ def constructor():
    pass
 
 
-@userBp.route('/dashboard/user')
-@userBp.route('/dashboard/user/<int:page>')
+#get the user list
+@userBp.route('/administration/user')
+@userBp.route('/administration/user/<int:page>')
 def index(page=1):
    
    users = User.objects().paginate(page=page, per_page=10)
-   return render_template('dashboard/user/index.html', users=users)
+   return render_template('administration/user/index.html', users=users)
 
 
-@userBp.route('/dashboard/user/create', methods=('GET', 'POST'))
+#create a user
+@userBp.route('/administration/user/create', methods=('GET', 'POST'))
 def create():
    form = RegisterForm() 
    errorMessage=''
@@ -51,7 +55,7 @@ def create():
 
        user.save()
        flash("Usuario creado con éxito")
-       return redirect(url_for('useradmin.create'))
+       return redirect(url_for('useradministration.create'))
       except errors.NotUniqueError as exDup:
           errorMessage='El nombre de usuario ya existe'
       except Exception as ex:
@@ -63,14 +67,15 @@ def create():
    if form.errors:
       flash(form.errors,'danger')
    
-   return render_template('dashboard/user/create.html',form=form)
+   return render_template('administration/user/create.html',form=form)
 
-@userBp.route('/dashboard/user/update-username/<string:id>', methods=('GET', 'POST'))
+#update username
+@userBp.route('/administration/user/update/<string:id>', methods=('GET', 'POST'))
 def update(id):
    errorMessage=''
    user =  User.objects(_id=bson.objectid.ObjectId(id))
 
-   form = UpdateForm() #meta={'csrf':False}
+   form = UpdateForm() 
 
    if request.method == 'GET':
       form.new_username.data = user[0].username
@@ -82,7 +87,7 @@ def update(id):
        roles.append(request.form['rol'])
        user[0].update(username=request.form['new_username'],roles=roles)
        flash("Usuario actualizado con éxito")
-       return redirect(url_for('useradmin.update',id=user[0]._id))
+       return redirect(url_for('useradministration.update',id=user[0]._id))
       except Exception as ex:
           errorMessage=str(ex)
    
@@ -92,13 +97,14 @@ def update(id):
    if form.errors:
       flash(form.errors,'danger')
 
-   return render_template('dashboard/user/update.html',form=form,user=user)
+   return render_template('administration/user/update.html',form=form,user=user)
 
-@userBp.route('/dashboard/user/delete/<string:id>', methods=('GET', 'POST'))
+#delete user
+@userBp.route('/administration/user/delete/<string:id>', methods=('GET', 'POST'))
 def delete(id):
    user =  User.objects(_id=bson.objectid.ObjectId(id)) 
 
    user[0].delete()
    flash("Usuario eliminado con éxito")
 
-   return redirect(url_for('useradmin.index'))
+   return redirect(url_for('useradministration.index'))

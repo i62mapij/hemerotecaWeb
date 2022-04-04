@@ -25,7 +25,6 @@ Vue.component('loading',{
     },
     template:
     `
-
     <div class="modal fade" id="modalWait" tabindex="-1" role="dialog" aria-labelledby="waitModalLabel" aria-hidden="true">
   
     <div class="modal-dialog modal-lg" role="document" id="modalWaitDialog">
@@ -41,17 +40,12 @@ Vue.component('loading',{
        </div>
      </div>
           
-         
        </div>
        <div class="modal-footer">
-     
        </div>
-      
      </div>
    </div>
-   
  </div>
-
   
     `
 });

@@ -110,11 +110,6 @@ class UserModelView(AdminModalView):
         return form
 
 
-class LoginForm(FlaskForm):
-    username = StringField('Usuario', validators=[InputRequired()])
-    password = PasswordField('Contraseña', validators=[InputRequired()])
-    next = HiddenField('next')
-
 class RegisterForm(FlaskForm):
     username = StringField('Usuario', validators=[InputRequired()])
     password = PasswordField('Contraseña', validators=[InputRequired(),EqualTo('retype_password')])

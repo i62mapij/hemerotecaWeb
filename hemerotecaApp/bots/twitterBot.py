@@ -20,10 +20,6 @@ from logging.handlers import RotatingFileHandler
 #bot that fetches publications from direct message urls, mentions, or replies 
 # to the twitter user logged into the app
 
-
-if not os.path.exists('log'):
-   os.makedirs('log')
-
 log_formatter = logging.Formatter('%(asctime)s %(levelname)s %(funcName)s(%(lineno)d) %(message)s')
 
 logFile = './log/hemerotecaWebTwitterBot.log'

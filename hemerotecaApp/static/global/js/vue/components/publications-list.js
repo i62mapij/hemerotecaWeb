@@ -43,7 +43,6 @@ Vue.component('publications-list',{
               this.error = 'Error de seguridad al obtener los datos. No se pudo obtener un token para la sesión actual.'
             }
           }) 
-
       },
       getPublications: function(){
           //function that calls the rest api to get the list of publications that meet the filter criteria  
@@ -71,13 +70,16 @@ Vue.component('publications-list',{
              this.$delete(this.publications.data,this.publications.data.length-1)
             }
             else{
-              this.error=res.msj.split('#')[0]
-              if (res.msj.split('#').length>1){
-                this.errorDetail=res.msj.split('#')[1]
-              }
+              this.showError(res);
             }
           })         
-
+      },
+      showError:function(res){
+        this.error=res.msj.split('#')[0]
+        if (res.msj.split('#').length>1){
+              this.errorDetail=res.msj.split('#')[1]
+        }
+        $('#errorID').show()
       },
       callDelete(formData){
         //function that calls the rest api to delete a publication
@@ -92,11 +94,7 @@ Vue.component('publications-list',{
               if(res.code == 200){
                 this.callServerForPublications();
               }else{
-                this.error=res.msj.split('#')[0]
-                if (res.msj.split('#').length>1){
-                  this.errorDetail=res.msj.split('#')[1]
-                }
-                $('#errorID').show()
+                this.showError(res);
               }
             })          
     },
@@ -123,11 +121,9 @@ Vue.component('publications-list',{
            
         },
         eventPublicationDelete: function(){
-            var formData = new FormData()
-            
-            formData.append("id",this.publicationSelected.id)
-            this.callDelete(formData)
-            
+            var formData = new FormData()          
+            formData.append("id",this.publicationSelected.id);
+            this.callDelete(formData);   
         },
         eventPublicationUpdate: function(publication){
             this.publications.data[this.publicationIndexSelected].title = publication.title
@@ -191,7 +187,7 @@ Vue.component('publications-list',{
                       </a>
                   </h6>
                   <h6>
-                    <span>&nbsp;{{ publication.summary }}</span>
+                    <span  v-if="publication.summary!=''">&nbsp;{{ publication.summary }}</span>
                     <span v-else>&nbsp;{{ publication.text }}</span>  
                   </h6>
                   <div align="right">

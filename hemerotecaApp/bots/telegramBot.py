@@ -79,9 +79,6 @@ applicationName = parametersTelegram.applicationName
 optionsTelegram = BotTelegram.objects().first()
 
 channel = 'https://t.me/'+optionsTelegram.channel
-
-if not os.path.exists('log'):
-   os.makedirs('log')
    
 log_formatter = logging.Formatter('%(asctime)s %(levelname)s %(funcName)s(%(lineno)d) %(message)s')
 
