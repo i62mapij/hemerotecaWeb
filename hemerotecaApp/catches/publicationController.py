@@ -7,7 +7,7 @@ from datetime import datetime
 from sqlalchemy.sql.expression import not_,or_
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, BooleanField, IntegerField
-from wtforms.fields.html5 import DateField
+from wtforms.fields import DateField
 from wtforms.validators import InputRequired, NumberRange
 import json
 from hemerotecaApp.catches.model.publication import Publications
