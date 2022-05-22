@@ -1,5 +1,5 @@
 from flask.globals import current_app
-from hemerotecaApp import app,dbMongo
+from hemerotecaApp import app,dbMongo,User
 
 from flask_wtf import FlaskForm
 from flask_mongoengine.wtf import model_form
@@ -31,4 +31,5 @@ class Publications(dbMongo.Document):
     date = dbMongo.DateTimeField(default=datetime.now, required=True)
     webDate = dbMongo.DateTimeField(default=datetime.now, required=True)
     imagePath = ''
+    user = dbMongo.ReferenceField(User)
 
