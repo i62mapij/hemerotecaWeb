@@ -9,6 +9,7 @@ from flask_httpauth import HTTPTokenAuth
 from hemerotecaApp.auth.model.user import User
 from hemerotecaApp.catches.model.publication import Publications,Notes
 from hemerotecaApp import user_manager
+from flask_login import  current_user
 import bson
 from urllib.request import urlopen
 from hemerotecaApp.configuration.model.parameters import ParametersTwitter
@@ -46,8 +47,9 @@ class SavePublication():
                   notesObj=Notes(text=notes)
                   notesList.append(notesObj)
                   notesObj.save()
-                  
-                 publication = Publications(title = title, summary = summary, text = text, url = url, screen_name = screen_name, notes = notesList, channel = channel, image = image, type=type,webDate=webDate)
+		
+                 user=current_user._id  
+                 publication = Publications(title = title, summary = summary, text = text, url = url, screen_name = screen_name, notes = notesList, channel = channel, image = image, type=type,webDate=webDate,user=user)
                 
         publication.save()
         return publication
