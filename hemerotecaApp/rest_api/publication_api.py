@@ -373,11 +373,12 @@ class TwitterApi(MethodView):
                imageBase64=None   
               
               url=getURLFromTweet(tweet)
+	      
               if url: 
-               text = re.sub(r"http\S+", url, tweet.full_text, flags=re.MULTILINE)
+               text = re.sub(r"http\S+", url, tweet.full_text, flags=re.MULTILINE) # se reemplazan las urls internas que devuelve Twitter por las originales 
               else:
                if 'https://' in  tweet.full_text:
-                text = re.sub(r"http\S+", '', tweet.full_text, flags=re.MULTILINE)
+                text = re.sub(r"http\S+", '', tweet.full_text, flags=re.MULTILINE) # se eliminan urls que pueden ser de imágenes
                else:
                 text = tweet.full_text
               res.append(createTuitJson(tweet.id, text, tweet.created_at.strftime("%d/%m/%Y"),imageBase64,url=url, screen_name=screen_name))
